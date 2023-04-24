@@ -602,8 +602,8 @@ def read_persons(host_url, api_key):
         print('   演职人员：' + str(len(output)) + '人\n')
         return output
     except:
-        logger.error('Emby / Jellyfin 的响应无法解析为 Json：' + rqs_emby.headers['Content-Type'])
-        print('× 连接 Emby / Jellyfin 服务器成功，但是服务器的演员列表不能识别：' + rqs_emby.headers['Content-Type'])
+        logger.error('Emby / Jellyfin The response cannot be resolved as Json:' + rqs_emby.headers['Content-Type'] )
+        print('× Connections Emby / Jellyfin server succeeded, but the server's actor list is not recognized:' + rqs_emby.headers['Content-Type'] )
         sys.exit()
 
 

@@ -1,48 +1,48 @@
-# Gfriends Inputer 一键导入工具
-适用于 Emby/Jellyfin 的媒体服务器头像导入工具，[Gfriends 女友头像仓库](https://github.com/gfriends/gfriends) 衍生项目。
+# Gfriends Inputer One Click Import Tool
+Media server avatar import tool for Emby/Jellyfin, [Gfriends Girlfriend Avatar Repository](https://github.com/gfriends/gfriends) spin-off project.
 > *There is no correlation between this repo and Korean girl group GFRIEND.*
 
-## 目录
-* [快速开始](#快速开始)
-* [进阶说明](#进阶说明)
-   * [使用 AI 精准裁剪头像](#精准裁剪头像)
-   * [刮削演员个人信息](#刮削演员个人信息)
-   * [定时自动运行](#定时自动运行)
-   * [导入本地头像](#导入本地头像)
-   * [自定义头像来源](#自定义头像来源)
-   * [第三方刮削工具](#第三方刮削工具)
-* [许可证及法律信息](#许可证及法律信息)
+## Catalog
+* [Quick Start](# Quick Start)
+* [Advanced Description](# Advanced description)
+   * [Use AI to precisely crop avatars](# Precisely crop avatars)
+   * [Scrape actor's personal information](# Scrape actor's personal information)
+   * [Timed Auto-run](# Timed auto-run)
+   * [Import Local Avatars](# Import Local Avatars)
+   * [Custom avatar source](# Custom avatar source)
+   * [Third-party scraping tool](# Third-party scraping tool)
+* [License and legal information](# License and legal information)
 
-## 快速开始
-#### 1. 下载并解压
-请在 [Release](https://github.com/gfriends/gfriends-inputer/releases) 下载并解压 Gfriends Inputer 程序压缩包。<br>
-*提示：程序可以连接**远程**媒体服务器，因此请选择自己顺手的系统。*
+## Quick Start
+#### 1. Download and decompress
+Please download and unzip the Gfriends Inputer program zip file at [Release](https://github.com/gfriends/gfriends-inputer/releases). <br>
+*Hint: The program can connect to **remote** media servers, so please choose the system that you are comfortable with. *
 
-#### 2. 获取媒体服务器 API 密钥
-进入 Emby / Jellyfin 控制台，`高级` — `API 密钥`  — `新 API 密钥` ，根据提示即可生成 API 密钥。
+#### 2. Get Media Server API key
+Go to the Emby / Jellyfin console, `Advanced` - `API Key` - `New API Key` and follow the prompts to generate an API key.
 
-#### 3. 编辑配置文件并运行
-**Mac / Windows 用户** 直接运行可执行程序 `Gfriends Inputer.exe` <br>
-**Linux 用户** 打开命令终端：运行 `chmod +x "Gfriends Inputer"` 来赋予权限，然后执行 `./"Gfriends Inputer"` 启动程序
+#### 3. Edit the configuration file and run
+**Mac / Windows users** run the executable program `Gfriends Inputer.exe` directly <br>
+**Linux User** Open command terminal: run `chmod +x "Gfriends Inputer"` to grant permissions, then execute `./"Gfriends Inputer"` to start the program
 
-程序首次运行将自动生成配置文件 `Config.ini`，配置文件的必填项为 `媒体服务器的地址` 和获取的 `API 密钥`。
+The first time the program is run, the configuration file `Config.ini` is automatically generated, and the required fields in the configuration file are `Address of the media server` and `API Key` Obtained.
 
-*提示：v2.x 旧版本的 Mac/Linux 配置文件在用户根目录，常见在：`/Users/username/`、`/home/username/`、`/root/`*
+*Hint: V2.x older versions of Mac/Linux configuration files are in the user root directory, commonly found in: `/Users/username/`,`/home/username/`,`/root/`*
 
 ```
-CLI 命令: "Gfriends Inputer" [-h] [-c [CONFIG]] [-q] [-v]
+CLI command: "Gfriends Inputer" [-h] [-c [CONFIG]] [-q] [-v]
 
-选项说明:
-  -c [CONFIG], --config [CONFIG]
-                        指定配置文件路径，默认为运行目录。
-  -h, --help            显示本帮助信息。
-  -q, --quiet           开启静默模式，不打印任何信息。
-  --skip-update         跳过更新检查，强制运行旧版本。
-  --debug               输出调试日志，即使配置文件未开启调试模式。
-  -v, --version         显示当前版本。
+Option Description.
+-c [CONFIG], --config   [CONFIG]
+                        Specify the configuration file path, the default is the running directory.
+-h, --help              Show this help information.
+-q, --quiet             Turn on silent mode, no messages will be printed.
+--skip-update           Skips the update check and forces the old version to run.
+--debug                 Export debug logs even if the configuration file is not enabled in debug mode.
+-v, --version           Show current version.
 ```
 
-您亦可在 Python 3.6 及以上版本环境下直接运行源码
+You can also run the source code directly in Python 3.6 and above
 ```
 git clone https://github.com/gfriends/gfriends-inputer.git
 cd ./gfriends-inputer
@@ -50,87 +50,87 @@ pip install -r requirements.txt
 python3 "./Gfriends Inputer.py"
 ```
 
-## 进阶说明
+## Advanced Instructions
 
-按需完成进阶配置有助于提升使用体验。
+Completing advanced configurations on-demand helps enhance the experience.
 
-### 【精准裁剪头像】
+### [Precise cropping of avatars
 
-仓库中的头像可能尺寸不标准，媒体服务器会自动拉伸使头像变形，这时需要裁剪头像。虽很少遇到这种情况，但为避免裁剪到演员面部，您应当配置 AI 精准裁剪。
+The headshots in the repository may not be the standard size and the media server may automatically stretch the headshots to distort them, which requires cropping them. This is rarely the case, but to avoid cropping to the actor's face, you should configure AI precision cropping.
 
 **1. OpenCV DNN AI**<br>
-*Gfriends Inputer v3.0 及后续版本支持*
+*Gfriends Inputer v3.0 and subsequent versions supported*
 
-默认开启，无需配置。[OpenCV](https://opencv.org/) 提供本地无感知的人脸识别，兼具准确度与速度且无需联网。
+Enabled by default, no configuration required. [Opencv](https://opencv.org/) provides local, non-sensitive face recognition with accuracy and speed without networking.
 
-**2. 百度 AI**<br>
-*Gfriends Inputer v2.7 及后续版本支持*
+**2. Baidu AI**<br>
+*Gfriends Inputer v2.7 and subsequent versions support*
 
-> *此服务需使用中国大陆居民身份证进行实名认证、并理解同意百度智能云的 [服务协议](https://cloud.baidu.com/doc/Agreements/s/yjwvy1x03) 、[隐私政策](https://cloud.baidu.com/doc/Agreements/s/Kjwvy245m) 以及百度AI开放平台的 [服务协议](https://ai.baidu.com/ai-doc/REFERENCE/kk3dwjg7d)。*
+> *This service requires real-name authentication with a mainland Chinese resident ID and an understanding that you agree to the [Service Agreement](https://cloud.baidu.com/doc/Agreements/s/yjwvy1x03), [Privacy Policy](https://cloud.baidu.com/doc/) of the Baidu Intelligent Cloud and the [Service Agreement](https://cloud.baidu.com/doc/Agreements/s/yjwvy1x03) of the Baidu AI Open Platform. Agreements/s/Kjwvy245m) and the [Service Agreement](https://ai.baidu.com/ai-doc/Reference/kk3dwjg7d) of Baidu AI Open Platform. *
 
-您可以在通过如下途径申请相关 API：
-1. 访问 https://ai.baidu.com 百度 AI 开放平台，登录并进入控制台。
-2. 进入 “人体分析” —— “创建应用”，按要求填写表单，并勾选 “人体分析” 接口。
-3. 进入 “人体分析” —— “管理应用”，获取 `BD_App_ID`、`BD_API_Key`、`BD_Secret_Key`，并编辑配置文件中 `百度AI API` 部分。
+You can apply for the relevant API in the following ways:
+1. Visit https://ai.baidu.com Baidu AI Open Platform, log in and access the console.
+2. Go to "Body Analysis" - "Create Application", fill out the form as required and check the "Body Analysis " Interface.
+3. Go to `Body Analysis` - `Manage Applications`, get `BD_App_ID`, `bd_api_key`, `bd_secret_ Key`, and edit the `Baidu AI API` section in the configuration file.
 
-### 【刮削演员个人信息】
-*Gfriends Inputer v3.0 及后续版本支持*
+### [Scraping Actor's Personal Information
+*Gfriends Inputer v3.0 and subsequent versions supported*
 
-仅需在配置文件中开启。程序会在下载头像后，顺便搜索女友的个人信息（生日、三围、身高等），然后一并导入服务器。
+It only needs to be turned on in the configuration file. The program will download the avatar and incidentally search for your girlfriend's personal information (birthday, Circumference, Height, Etc.) and import it to the server along with it.
 
-### 【定时自动运行】
-*Gfriends Inputer v2.6 及后续版本支持*
+### [Timed Auto Run
+*Gfriends Inputer v2.6 and subsequent versions support*
 
-在首次运行测试无误后，您可以把命令写入 Crontab 任务，来定时后台运行程序。
+After the first run has been tested without errors, you can write commands to a Crontab task to run the program in the background at regular intervals.
 
 ```
-#每天零点运行，不输出日志
-0 0 * * * "/home/user/gfriends Inputer"
-#周一零点运行，输出日志，并指定配置文件路径
+# Run at zero every day, no log output
+0 0 * * * * "/home/user/gfriends Inputer"
+# Monday zero runs, outputs logs, and specifies profile path
 0 0 * * 0 "/home/user/gfriends Inputer" -q -c "/home/user/config.ini"
 ```
 
-### 【导入本地头像】
-*Gfriends Inputer v2.5 及后续版本支持*
+### [Import local avatar
+*Gfriends Inputer v2.5 and subsequent versions support*
 
-程序首次启动时会自动创建 `Avatar` 文件夹（可在配置文件中修改）。将本地头像图片重命名为`演员姓名.jpg`，或将第三方头像包移动至该文件夹。此后，导入工具优先从该文件夹查找并导入头像，本地路径中不存在的则会尝试从 Gfriends 仓库搜索并导入。
+The `Avatar` folder is automatically created when the program is first started (you can change it in the configuration file). Rename the local avatar image to `ActorName.jpg` or move a third-party avatar package to this folder. After that, the import tool will prefer to find and import avatars from this folder, while those that do not exist in the local path will try to search and import from the Gfriends repository.
 
-### 【自定义头像来源】
+### [Custom avatar source
 
-在仓库中，可能收录了多张不同来源的同一女友头像。这时，默认根据头像质量及尺寸，自动选优后导入头像。<br>
-但是，每个人的喜好不同。比如，有的人可能不喜欢 Graphis 的头像，因为上面有标记女友名。有些人可能不喜欢 EBODY 的头像，因为女友衣着太暴露了。
+In the repository, multiple avatars of the same girlfriend from different sources may be included. In this case, by default, the avatars are automatically selected based on the quality and size of the avatars and then imported. <br>
+However, everyone has different preferences. For example, some people may not like Graphis avatars because they have their girlfriend's name marked on them. Some may not like EBODY's avatar because the girlfriend's clothes are too revealing.
 
-**1. 手动选择头像**<br>
-*Gfriends Inputer v3.0 及后续版本支持*
+**1. Manually select an avatar**<br>
+*Gfriends Inputer v3.0 and subsequent versions supported*
 
-仅需在配置文件中开启。程序在遇到多头像时，自动下载对应演员的所有头像，您可以手动删除不喜欢的头像。
+Only need to be turned on in the configuration file. When the program encounters multiple avatars, it automatically downloads all the avatars of the corresponding actors, and you can manually delete the ones you don't like.
 
-**2. 厂牌黑名单**<br>
-*Gfriends Inputer v2.x 支持*
+**2. Factory Blacklist**<br>
+*Gfriends Inputer v2.x Support*
 
-编辑配置文件的 `厂牌黑名单`，填入厂牌后，相应的头像将不会被获取。具体厂牌名可以在主仓库 [图片来源](https://github.com/gfriends/gfriends#%E5%9B%BE%E7%89%87%E6%9D%A5%E6%BA%90) 或 [`Content`](https://github.com/gfriends/gfriends/tree/master/Content) 目录获取。
+Edit the `label Blacklist` in the configuration file and fill in the labels so that the corresponding avatars will not be acquired. The specific label name can be found in the main repository [Image Source](https://github.com/gfriends/gfriends#%e5%9b%be%e7%89%87%e6%9d%a5%e6%ba%90) or [`Content`](https://github.com/ gfriends/gfriends/tree/master/Content) directory.
 
-### 【第三方刮削工具】
-推荐与 Gfriends Inputer 搭配刮削整理项目，神兵利器助您事半功倍。
+### [Third-party scraping tool]
+It is recommended to pair with Gfriends Inputer for scraping and organizing projects, a powerful tool to help you get more done with less effort.
 
-[Movie Data Capture](https://github.com/yoshiko2/AV_Data_Capture "AV Data Capture")：本地电影元数据刮削器。<br>
-  衍生项目：[AVDC GUI](https://github.com/moyy996/AVDC "AVDC GUI")、[MDCx](https://github.com/anyabc/something "MDCx")
+[Movie Data Capture](https://github.com/yoshiko2/AV_Data_Capture "AV Data Capture"): local movie metadata scraper. <br>
+Derivative projects: [AVDC GUI](https://github.com/moyy996/AVDC "AVDC Gui"), [MDCx](https://github.com/anyabc/something "MDCx")
 
-[JavScraper](https://github.com/JavScraper/Emby.Plugins.JavScraper "JavScraper")：一个 Jellyfin/Emby 的日本电影刮削器插件，可以从某些网站抓取影片信息。
+[JavScraper](https://github.com/JavScraper/Emby.Plugins.JavScraper "javscraper"): a Japanese movie scraper plugin for Jellyfin/Emby that grabs movie information from certain websites.
 
-[Javtube](https://github.com/javtube/jellyfin-plugin-javtube "Javtube")：另一个为 Jellyfin/Emby 开发的超级好用的 JAV 插件。（部分开源）
+[Javtube](https://github.com/javtube/jellyfin-plugin-javtube "javtube"): another superb JAV plugin developed for Jellyfin/Emby. (partially open source)
 
-[JAVSDT](https://github.com/junerain123/javsdt "JAVSDT")：日本影片标准化工具。（已闭源）
+[JAVSDT](https://github.com/junerain123/javsdt "javsdt"): Japanese Film Standardization Tool. (closed source)
 
-[JAVOneStop](https://github.com/ddd354/JAVOneStop "JAVOneStop")：一站 JAV，All-in-One 的 JAV 处理工具。
+[JAVOneStop](https://github.com/ddd354/JAVOneStop "javonestop"): One-stop JAV, All-in-One's JAV processing tool.
 
-*您知道其他相似的开源工具？欢迎提交 issues 告诉我。*
+*Do you know of other similar open source tools? Feel free to submit issues and let me know. *
 
-## 许可证及法律信息
-本项目授权在 [MIT](https://github.com/gfriends/gfriends-inputer/blob/main/LICENSE) 许可下，此外：
+## Licensing and Legal Information
+This project is licensed under the [MIT](https://github.com/gfriends/gfriends-inputer/blob/main/LICENSE) License, in addition to:
 
-1. 项目仅用于技术、学术交流，严禁用于商业和其他盈利目的。
-2. 请自觉遵守当地法律法规，产生的一切后果由用户自行承担。
-3. 作者保留最终决定权和最终解释权。
+1. The project is only for technical and academic exchange, and is strictly prohibited for commercial and other profit-making purposes.
+2. Please consciously comply with local laws and regulations, all consequences arising from the user's own responsibility.
+3. The author reserves the right of final decision and final interpretation.
 
-若您不同意上述任一条款，请勿直接或间接使用本项目。
+If you do not agree to any of the above terms, please do not use this program directly or indirectly.

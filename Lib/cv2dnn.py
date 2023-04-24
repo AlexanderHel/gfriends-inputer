@@ -8,25 +8,27 @@ try:
     import numpy as np
 
     # Load a model stored in Caffe
-    # opencv_dnn_model = cv2.dnn.readNetFromCaffe("./Lib/deploy.prototxt",
-    #                                              "./Lib/res10_300x300_ssd_iter_140000_fp16.caffemodel")
+    # opencv_dnn_model = cv2.dnn.readNetFromCaffe("./cv2dnnLib/deploy.prototxt",
+    #                                              "./cv2dnnLib/res10_300x300_ssd_iter_140000_fp16.caffemodel")
 
     pb_path = "./Lib/opencv_face_detector_uint8.pb"
     pbtxt_path = "./Lib/opencv_face_detector.pbtxt"
     if os.path.exists(pb_path) and os.path.exists(pbtxt_path):
         # Load a model stored in TensorFlow
         opencv_dnn_model = cv2.dnn.readNetFromTensorflow(pb_path, pbtxt_path)
-        logger.info('OpenCV 初始化成功')
+        logger.info('OpenCV initialization successful')
     else:
-        logger.warning('OpenCV 初始化失败：Lib 库文件缺失。')
-        print('OpenCV 初始化失败：Lib 库文件缺失。')
-        print('建议重新下载程序，强制运行可能引发异常。')
+        logger.warning('OpenCV initialization failed: Lib library file is missing.')
+        print('OpenCV initialization failed: Lib library file is missing.')
+        print('It is recommended to re-download the program, forcing it to run may cause an exception.')
         input('Press Enter to continue...')
 except cv2.error:
-    logger.warning('OpenCV 初始化失败：' + format_exc().replace('\n', ''))
-    print('OpenCV 初始化失败，有可能是 CPU 或系统不兼容。')
-    print('建议重新下载程序或关闭本地 AI 功能，强制运行可能引发异常。')
+    logger.warning('OpenCV initialization failed: ' + format_exc().replace('\n', ''))
+    print('OpenCV initialization failed, possibly due to CPU or system incompatibility.')
+    print('It is recommended to re-download the program or turn off the local AI function, forcing it to run may cause an exception.')
     input('Press Enter to continue...')
+
+
 
 
 def find_faces(img):

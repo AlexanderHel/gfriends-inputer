@@ -8,12 +8,11 @@
 	mkdir __pycache__
 	
 	pyinstaller --collect-submodules "Lib" `
-		--collect-data "Lib" `
-	    --collect-data "alive_progress" `
-	    --collect-data "aip" `
-		--add-data "Lib;opencv_face_detector.pbtxt" `
-	    --add-data "config.ini;." `
-	    --onefile "Gfriends Inputer.py"
+		--collect-all "opencv-python" `
+		--collect-data "alive_progress" `
+		--collect-data "aip" `
+		--add-data "config.ini;." `
+		--onefile "Gfriends Inputer.py"
 	
 	
 	rmdir -Recurse -Force build
